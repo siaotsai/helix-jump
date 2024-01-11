@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class balll : MonoBehaviour
@@ -8,40 +6,27 @@ public class balll : MonoBehaviour
     
     public float jumpForce;
 
-    private GameManager gm;
+    private GameManager _gm;
 
     public GameObject SplashPrefab;
 
-    void Start()
+    private void Start()
     {
-        gm = GameObject.FindObjectOfType<GameManager>();
-    }
-
-    void Update()
-    {
-        
+        _gm = FindObjectOfType<GameManager>();
     }
     
     private void OnCollisionEnter(Collision other)
     {
         rb.AddForce(Vector3.up * jumpForce);
-        GameObject splash = Instantiate(SplashPrefab, transform.position + new Vector3(0f, -0.23f, 0f), transform.rotation);
+        var ballTransform = transform;
+        var splash = Instantiate(SplashPrefab, ballTransform.position + new Vector3(0f, -0.23f, 0f), ballTransform.rotation);
         splash.transform.SetParent(other.gameObject.transform);
 
-        string metarialName = other.gameObject.GetComponent<MeshRenderer>().material.name;
-        Debug.Log("Touching Ring21: " + metarialName);
+        var metarialName = other.gameObject.GetComponent<MeshRenderer>().material.name;
 
-        if (metarialName == "safe (Instance)")
+        if (metarialName == "unsafe (Instance)")
         {
-            
-        }
-        else if (metarialName == "unsafe (Instance)")
-        {
-            gm.RestartGame();
-        }
-        else if (metarialName == "Last Ring (Instance)")
-        {
-            Debug.Log("Next Level");
+            _gm.RestartGame();
         }
     }
 }

@@ -1,26 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Ring : MonoBehaviour
 {
     public Transform ball;
-    private GameManager gm;
+    private GameManager _gm;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        gm  = GameObject.FindObjectOfType<GameManager>();
+        _gm = FindObjectOfType<GameManager>();
     }
 
-
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (transform.position.y + 12.5f >= ball.position.y)
-        {
-            Destroy(gameObject);
-            gm.GameScore(25);
-        }
+        if (!(transform.position.y + 12.5f >= ball.position.y)) return;
+        
+        _gm.GameScore(25);
+            
+        Destroy(gameObject);
+        _gm.RingCount--;
+
+        if (_gm.RingCount != 3) return;
+        
+        _gm.CloneRings();
+        _gm.RingCount += 6;
     }
 }

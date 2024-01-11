@@ -3,7 +3,9 @@ guid: 9c9befbaf4a08ca43983204271d8c418
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - ScoreText: {instanceID: 0}
+  - cylinderPrefab: {fileID: 5462046522205307988, guid: 772091a034afc6e42aa2f0c4de0ebcdb, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
